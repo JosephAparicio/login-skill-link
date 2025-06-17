@@ -2,7 +2,9 @@ import type {
     RegisterRequest,
     RegisterResponse,
     LoginRequest,
-    AuthResponse
+    AuthResponse,
+    ForgotPasswordRequest,
+    ForgotPasswordResponse
 } from '../types/auth';
 
 const API_BASE_URL = 'http://localhost:8080/api';
@@ -70,6 +72,104 @@ export const loginUser = async (credentials: LoginRequest): Promise<AuthResponse
         return data;
     } catch (error) {
         console.error('Error en la llamada a la API de login:', error);
+        throw error;
+    }
+};
+
+// ✅ NUEVA FUNCIÓN: Solicitar recuperación de contraseña
+export const forgotPassword = async (email: string): Promise<ForgotPasswordResponse> => {
+    try {
+        const requestData: ForgotPasswordRequest = {
+            correo: email
+        };
+
+        const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        });
+
+        if (!response.ok) {
+            let errorMessage = 'Error al solicitar recuperación de contraseña.';
+            try {
+                const errorBody = await response.json();
+                errorMessage = errorBody.mensaje || errorBody.message || `Error ${response.status}: ${response.statusText}`;
+            } catch (jsonError) {
+                errorMessage = `Error ${response.status}: ${response.statusText}`;
+            }
+            throw new Error(errorMessage);
+        }
+
+        const data: ForgotPasswordResponse = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error en la llamada a la API de recuperación:', error);
+        throw error;
+    }
+};
+
+// ✅ NUEVA FUNCIÓN: Validar token de recuperación
+export const validateResetToken = async (token: string): Promise<ForgotPasswordResponse> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/auth/validate-reset-token?token=${encodeURIComponent(token)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            let errorMessage = 'Token inválido o expirado.';
+            try {
+                const errorBody = await response.json();
+                errorMessage = errorBody.mensaje || errorBody.message || `Error ${response.status}: ${response.statusText}`;
+            } catch (jsonError) {
+                errorMessage = `Error ${response.status}: ${response.statusText}`;
+            }
+            throw new Error(errorMessage);
+        }
+
+        const data: ForgotPasswordResponse = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error en la validación del token:', error);
+        throw error;
+    }
+};
+
+// ✅ NUEVA FUNCIÓN: Cambiar contraseña con token
+export const resetPassword = async (token: string, newPassword: string): Promise<ForgotPasswordResponse> => {
+    try {
+        const requestData = {
+            token: token,
+            nuevaContra: newPassword
+        };
+
+        const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        });
+
+        if (!response.ok) {
+            let errorMessage = 'Error al cambiar la contraseña.';
+            try {
+                const errorBody = await response.json();
+                errorMessage = errorBody.mensaje || errorBody.message || `Error ${response.status}: ${response.statusText}`;
+            } catch (jsonError) {
+                errorMessage = `Error ${response.status}: ${response.statusText}`;
+            }
+            throw new Error(errorMessage);
+        }
+
+        const data: ForgotPasswordResponse = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error en el cambio de contraseña:', error);
         throw error;
     }
 };

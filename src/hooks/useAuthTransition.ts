@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { registerUser, loginUser } from '../api/auth';
+import { registerUser, loginUser, forgotPassword } from '../api/auth';
 import type { AuthMode, FormData, UserRole, UserInterest, LoginRequest, AuthResponse, RegisterRequest } from '../types/auth';
 
 
@@ -150,15 +150,28 @@ export const useAuthTransition = () => {
 
                 const authResponse: AuthResponse = await loginUser(requestData);
                 console.log('Login exitoso:', authResponse);
-                console.log('Token JWT recibido:', authResponse.token); // Muestra el token en consola
+                console.log('Token JWT recibido:', authResponse.token);
 
                 setApiMessage('¡Inicio de sesión exitoso! Revisa la consola para ver el token.');
                 setIsError(false);
                 resetForm();
-                // No hay redirección automática aquí, solo un mensaje y log en consola
             } else if (authMode === 'forgot') {
-                setApiMessage(`Funcionalidad de ${authMode} aún no implementada.`);
-                setIsError(true);
+                // ✅ NUEVA FUNCIONALIDAD: Recuperación de contraseña
+                if (!formData.email) {
+                    setApiMessage('Por favor ingresa tu correo electrónico.');
+                    setIsError(true);
+                    setIsLoading(false);
+                    return;
+                }
+
+                const response = await forgotPassword(formData.email);
+                setApiMessage(response.mensaje);
+                setIsError(!response.exito);
+                
+                if (response.exito) {
+                    // Limpiar solo el email después del éxito
+                    setFormData(prev => ({ ...prev, email: '' }));
+                }
             }
         } catch (error: any) {
             console.error('Error en el envío del formulario:', error);
@@ -167,7 +180,7 @@ export const useAuthTransition = () => {
         } finally {
             setIsLoading(false);
         }
-    }, [authMode, formData, resetForm, switchMode, passwordValidation.isValid]);
+    }, [authMode, formData, resetForm, passwordValidation.isValid]);
 
     return {
         authMode,

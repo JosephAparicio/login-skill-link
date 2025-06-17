@@ -67,10 +67,19 @@ export interface LoginRequest {
     password: string;
 }
 
-// Este tipo debe coincidir EXACTAMENTE con el AuthResponse de tu backend
 export interface AuthResponse {
     token: string;
     userId: number;
     email: string;
     role: string;
+}
+
+export interface ForgotPasswordRequest {
+    correo: string;
+}
+
+export interface ForgotPasswordResponse {
+    mensaje: string;
+    exito: boolean;
+    correo?: string;
 }
