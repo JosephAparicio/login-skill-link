@@ -44,7 +44,6 @@ export const UnifiedModal: React.FC<UnifiedModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      // Si ya hay un rol seleccionado, ir directamente a intereses
       if (selectedRole) {
         setCurrentStep('interests');
       } else {

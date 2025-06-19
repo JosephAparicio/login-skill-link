@@ -68,7 +68,7 @@ function App() {
                 apiMessage={apiMessage}
                 isError={isError}
                 isLoading={isLoading}
-                passwordValidation={passwordValidation} // ✅ Pasar validación como prop
+                passwordValidation={passwordValidation}
               />
             </div>
           </div>

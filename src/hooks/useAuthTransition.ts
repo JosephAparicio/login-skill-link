@@ -156,7 +156,6 @@ export const useAuthTransition = () => {
                 setIsError(false);
                 resetForm();
             } else if (authMode === 'forgot') {
-                // ✅ NUEVA FUNCIONALIDAD: Recuperación de contraseña
                 if (!formData.email) {
                     setApiMessage('Por favor ingresa tu correo electrónico.');
                     setIsError(true);
@@ -169,7 +168,6 @@ export const useAuthTransition = () => {
                 setIsError(!response.exito);
                 
                 if (response.exito) {
-                    // Limpiar solo el email después del éxito
                     setFormData(prev => ({ ...prev, email: '' }));
                 }
             }

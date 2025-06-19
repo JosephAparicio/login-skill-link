@@ -76,7 +76,6 @@ export const loginUser = async (credentials: LoginRequest): Promise<AuthResponse
     }
 };
 
-// ✅ NUEVA FUNCIÓN: Solicitar recuperación de contraseña
 export const forgotPassword = async (email: string): Promise<ForgotPasswordResponse> => {
     try {
         const requestData: ForgotPasswordRequest = {
@@ -110,7 +109,6 @@ export const forgotPassword = async (email: string): Promise<ForgotPasswordRespo
     }
 };
 
-// ✅ NUEVA FUNCIÓN: Validar token de recuperación
 export const validateResetToken = async (token: string): Promise<ForgotPasswordResponse> => {
     try {
         const response = await fetch(`${API_BASE_URL}/auth/validate-reset-token?token=${encodeURIComponent(token)}`, {
@@ -139,7 +137,6 @@ export const validateResetToken = async (token: string): Promise<ForgotPasswordR
     }
 };
 
-// ✅ NUEVA FUNCIÓN: Cambiar contraseña con token
 export const resetPassword = async (token: string, newPassword: string): Promise<ForgotPasswordResponse> => {
     try {
         const requestData = {

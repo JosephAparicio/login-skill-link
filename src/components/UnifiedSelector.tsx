@@ -72,7 +72,6 @@ export const UnifiedSelector: React.FC<UnifiedSelectorProps> = ({
         <Settings className="w-4 h-4 text-white/50 group-hover:text-white/70 group-hover:rotate-90 transition-all duration-300" />
       </button>
 
-      {/* Modal unificado */}
       <UnifiedModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

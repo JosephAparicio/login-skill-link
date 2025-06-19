@@ -10,26 +10,22 @@ interface AuthBackgroundProps {
 export const AuthBackground: React.FC<AuthBackgroundProps> = ({ authMode, isTransitioning }) => {
   return (
     <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-      {/* Base gradient with ULTRA SMOOTH background transition */}
       <div className={`absolute inset-0 smooth-background ${
         authMode === 'register' 
           ? 'bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700' 
           : 'bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700'
       }`}></div>
       
-      {/* Overlay with smooth transitions */}
       <div className={`absolute inset-0 smooth-transition ${
         authMode === 'register' 
           ? 'opacity-100 transform scale-100' 
           : 'opacity-0 transform scale-95'
       }`}>
-        {/* Organic fluid shapes */}
         <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-cyan-400/20 to-emerald-500/20 rounded-full transform -translate-x-1/2 -translate-y-1/2 animate-blob"></div>
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-br from-teal-400/20 to-blue-500/20 rounded-full transform translate-x-1/3 translate-y-1/3 animate-blob animation-delay-2000"></div>
         <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-emerald-400/20 to-cyan-500/20 rounded-full transform -translate-x-1/2 -translate-y-1/2 animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Content overlay with KEYFRAME ANIMATIONS for smooth text transitions */}
       <div className="relative z-10 p-12 flex flex-col justify-center">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative z-10">
@@ -96,7 +92,6 @@ export const AuthBackground: React.FC<AuthBackgroundProps> = ({ authMode, isTran
         </div>
       </div>
       
-      {/* Decorative elements with smooth transitions */}
       <div className={`absolute top-10 right-10 w-20 h-20 border border-white/20 rounded-full smooth-transition ${
         authMode === 'register' 
           ? 'animate-spin-slow border-cyan-300/40 scale-125' 

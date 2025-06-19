@@ -19,7 +19,7 @@ interface AuthFormProps {
   apiMessage: string | null;
   isError: boolean;
   isLoading: boolean;
-  passwordValidation: { isValid: boolean; checks: Array<{ id: string; label: string; isValid: boolean }> }; // ✅ Nueva prop
+  passwordValidation: { isValid: boolean; checks: Array<{ id: string; label: string; isValid: boolean }> };
 }
 
 export const AuthForm: React.FC<AuthFormProps> = ({
@@ -36,11 +36,10 @@ export const AuthForm: React.FC<AuthFormProps> = ({
   apiMessage,
   isError,
   isLoading,
-  passwordValidation // ✅ Recibir validación como prop
+  passwordValidation
 }) => {
   return (
     <div className="max-w-md mx-auto">
-      {/* Form header */}
       <div className={`text-center mb-6 ${
         isTransitioning ? 'animate-slideOutDown' : 'animate-slideInUp'
       }`}>
@@ -56,12 +55,10 @@ export const AuthForm: React.FC<AuthFormProps> = ({
         </p>
       </div>
 
-      {/* Auth form */}
       <form onSubmit={onSubmit} className={`space-y-5 ${
         isTransitioning ? 'animate-fadeOutDown' : 'animate-fadeInUp'
       }`}>
 
-        {/* Name fields container */}
         <div className={`overflow-hidden smooth-height ${
           authMode === 'register'
             ? 'max-h-24 opacity-100'
@@ -91,7 +88,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           </div>
         </div>
 
-        {/* Unified Role and Interest selector */}
         <div className={`overflow-hidden smooth-height ${
           authMode === 'register'
             ? 'max-h-32 opacity-100'
@@ -108,7 +104,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           </div>
         </div>
 
-        {/* Email field */}
         <AuthInput
           type="email"
           name="email"
@@ -120,7 +115,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           required
         />
 
-        {/* Password field container */}
         <div className={`overflow-hidden smooth-height ${
           authMode !== 'forgot'
             ? 'max-h-24 opacity-100'
@@ -146,7 +140,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 </button>
               }
             />
-            {/* Pasar validación centralizada como prop */}
             <PasswordValidation 
               passwordValidation={passwordValidation}
               authMode={authMode} 
@@ -154,7 +147,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           </div>
         </div>
 
-        {/* Forgot password link */}
         <div className={`overflow-hidden smooth-height ${
           authMode === 'login'
             ? 'max-h-10 opacity-100 mb-6'
@@ -171,14 +163,12 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           </div>
         </div>
 
-        {/* Mensaje de la API (éxito/error) */}
         {apiMessage && (
             <p className={`text-center font-medium mt-4 ${isError ? 'text-red-400' : 'text-green-400'}`}>
                 {apiMessage}
             </p>
         )}
 
-        {/* Submit button */}
         <div className="pt-2">
           <button
             type="submit"
@@ -199,7 +189,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           </button>
         </div>
 
-        {/* Mode switcher */}
         <div className="text-center pt-6 border-t border-white/10">
           {authMode === 'login' && (
             <p className="text-white/70">

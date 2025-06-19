@@ -59,7 +59,6 @@ const ResetPasswordPage: React.FC = () => {
         if (response.exito) {
           setPageState('valid');
           setUserEmail(response.correo || '');
-          // No establecemos mensaje aquí, solo el estado válido
         } else {
           setPageState('invalid');
           setMessage('Enlace no válido o expirado.');
@@ -127,18 +126,15 @@ const ResetPasswordPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-4000"></div>
       </div>
 
-      {/* Main container */}
       <div className="w-full max-w-md mx-auto relative z-10">
         <div className="bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-white/20 p-8">
           
-          {/* Header */}
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mb-6">
               <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-3 rounded-2xl">
@@ -162,7 +158,6 @@ const ResetPasswordPage: React.FC = () => {
             )}
           </div>
 
-          {/* Loading State */}
           {pageState === 'loading' && (
             <div className="text-center py-8">
               <div className="animate-spin w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full mx-auto mb-4"></div>
@@ -170,7 +165,6 @@ const ResetPasswordPage: React.FC = () => {
             </div>
           )}
 
-          {/* Invalid Token State */}
           {pageState === 'invalid' && (
             <div className="text-center py-8">
               <XCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
@@ -185,7 +179,6 @@ const ResetPasswordPage: React.FC = () => {
             </div>
           )}
 
-          {/* Success State */}
           {pageState === 'success' && (
             <div className="text-center py-8">
               <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
@@ -228,10 +221,8 @@ const ResetPasswordPage: React.FC = () => {
             </div>
           )}
 
-          {/* Reset Password Form */}
           {pageState === 'valid' && (
             <form onSubmit={handleSubmit} className="space-y-5">
-              {/* New Password */}
               <div className="space-y-1">
                 <AuthInput
                   type={showPassword ? 'text' : 'password'}
@@ -258,7 +249,6 @@ const ResetPasswordPage: React.FC = () => {
                 />
               </div>
 
-              {/* Confirm Password */}
               <AuthInput
                 type={showConfirmPassword ? 'text' : 'password'}
                 name="confirmPassword"
@@ -279,7 +269,6 @@ const ResetPasswordPage: React.FC = () => {
                 }
               />
 
-              {/* Password match indicator */}
               {confirmPassword && (
                 <div className={`text-sm flex items-center space-x-2 ${
                   password === confirmPassword ? 'text-green-400' : 'text-red-400'
@@ -295,12 +284,10 @@ const ResetPasswordPage: React.FC = () => {
                 </div>
               )}
 
-              {/* Error message - Solo mostrar mensajes de error en el formulario */}
               {message && isMessageError && (
                 <p className="text-red-400 text-center font-medium">{message}</p>
               )}
 
-              {/* Submit button */}
               <button
                 type="submit"
                 disabled={isSubmitting || !passwordValidation.isValid || password !== confirmPassword}
@@ -317,7 +304,6 @@ const ResetPasswordPage: React.FC = () => {
                 {!isSubmitting && <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />}
               </button>
 
-              {/* Back to login */}
               <div className="text-center pt-4 border-t border-white/10">
                 <button
                   type="button"
@@ -333,7 +319,6 @@ const ResetPasswordPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Floating elements */}
       <div className="absolute top-20 left-20 w-2 h-2 bg-purple-400 rounded-full animate-ping"></div>
       <div className="absolute bottom-32 right-32 w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
       <div className="absolute top-1/3 right-20 w-1 h-1 bg-white rounded-full animate-ping animation-delay-1000"></div>

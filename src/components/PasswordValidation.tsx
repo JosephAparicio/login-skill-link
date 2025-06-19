@@ -17,7 +17,6 @@ export const PasswordValidation: React.FC<PasswordValidationProps> = ({
   passwordValidation,
   authMode
 }) => {
-  // Solo mostrar validaciones en modo registro
   if (authMode !== 'register') return null;
 
   return (
